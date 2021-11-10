@@ -1,0 +1,2 @@
+
+export class HttpResUserDeleteDTO { constructor() {} }
