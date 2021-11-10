@@ -1,11 +1,33 @@
-import { Module } from '@nestjs/common';
-import { UsersController } from './core/users/presentation/users.controller';
-import { AdminController } from './core/admin/presentation/admin.controller';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './core/users/domain/User';
+import { LoggerMiddleware } from './system/logger/LoggerMiddleware';
+import { UsersController } from './core/users/presentation/controller/users.controller';
+import { UserModules } from './core/users/user.modules';
+
 
 @Module({
-  imports: [TypeOrmModule.forRoot()],
-  controllers: [UsersController, AdminController],
-  providers: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'Dlsgud*132',
+      database: 'meshtown_api',
+      entities: [User],
+      synchronize: true,
+    }),
+    UserModules
+  ],
+  providers: []
 })
-  export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes(
+        UsersController,
+      )
+  }
+}
