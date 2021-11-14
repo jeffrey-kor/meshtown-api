@@ -4,6 +4,7 @@ import { User } from './core/users/domain/User';
 import { LoggerMiddleware } from './common/logger/LoggerMiddleware';
 import { UsersController } from './core/users/presentation/controller/users.controller';
 import { UserModules } from './core/users/user.modules';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 
 @Module({
@@ -18,7 +19,11 @@ import { UserModules } from './core/users/user.modules';
       entities: [User],
       synchronize: true,
     }),
-    UserModules
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
+    UserModules,
   ],
   providers: []
 })

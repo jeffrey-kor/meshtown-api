@@ -4,10 +4,8 @@ import {
   Delete,
   Get,
   HttpCode,
-  Inject,
   Param,
   Post,
-  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,8 +13,8 @@ import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { HttpReqUserRegisterDTO } from '../dto/http.req.user-register.dto';
 import { UserService } from '../../application/service/user.service';
-import { ResponseEntity } from '../../../../system/payloads/responseEntity';
 import { User } from '../../domain/User';
+import { ResponseEntity } from 'src/common/payloads/responseEntity';
 
 @Controller("user")
 @ApiTags("User Apis")
@@ -72,4 +70,12 @@ export class UsersController {
     return this.userService.findOne(req);
   }
 
+
+  async updateUserName() {}
+  async updatePassword() {}
+  async updateUserAddress() {}
+
+  async uploadProfilePhoto() {}
+  async updateProfilePhoto() {}
+  async deleteProfilePhoto() {}
 }
