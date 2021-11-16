@@ -19,9 +19,16 @@ export class User {
   @Column({ length: 100 })
   user_address: string;
 
+  @Column({ length: 255, nullable: true })
+  token: string;
+
+  @Column({ length: 255, nullable: true })
+  refreshToken: string;
+
   @CreateDateColumn({ type: "timestamp", name: "created_at" })
   created_at: Date;
 
   @UpdateDateColumn({ type: "timestamp", name: "updated_at" })
   updated_at: Date;
+
 }

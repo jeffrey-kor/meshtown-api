@@ -15,6 +15,8 @@ import { HttpReqUserRegisterDTO } from '../dto/http.req.user-register.dto';
 import { UserService } from '../../application/service/user.service';
 import { User } from '../../domain/User';
 import { ResponseEntity } from 'src/common/payloads/responseEntity';
+import { Role } from '../../decorators/role.decorator';
+import { UserType } from '../../domain/Role.enum';
 
 @Controller("user")
 @ApiTags("User Apis")
@@ -24,6 +26,7 @@ export class UsersController {
     private readonly userService: UserService,
   ) {}
 
+  @Role(UserType.USER)
   @HttpCode(200)
   @ApiOperation({ summary: "Test Api" })
   @ApiOkResponse({ description: "Test Api", type: ResponseEntity })

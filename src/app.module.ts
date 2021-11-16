@@ -5,6 +5,10 @@ import { LoggerMiddleware } from './common/logger/LoggerMiddleware';
 import { UsersController } from './core/users/presentation/controller/users.controller';
 import { UserModules } from './core/users/user.modules';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './core/auth/auth.module';
+import { AuthController } from './core/auth/presentation/controller/auth.controller';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
 
 
 @Module({
@@ -24,8 +28,15 @@ import { ThrottlerModule } from '@nestjs/throttler';
       limit: 10,
     }),
     UserModules,
+    AuthModule
   ],
-  providers: []
+  providers: [
+  //   {
+  //   provide: APP_GUARD,
+  //   useClass: JwtAuthGuard,
+  // }
+  ],
+
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -33,6 +44,8 @@ export class AppModule implements NestModule {
       .apply(LoggerMiddleware)
       .forRoutes(
         UsersController,
+        AuthController
       )
   }
 }
+

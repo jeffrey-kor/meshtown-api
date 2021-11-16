@@ -11,6 +11,7 @@ import { Encryption } from '../../common/security/encryption/Encryption';
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
-  providers: [UserService, HttpCudUserRepository, HttpRUserRepository, Encryption]
+  providers: [UserService, HttpCudUserRepository, HttpRUserRepository, Encryption],
+  exports: [HttpRUserRepository, HttpCudUserRepository, UserService]
 })
 export class UserModules {}
