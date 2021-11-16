@@ -1,6 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Expose } from "class-transformer";
+import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
-@Injectable()
+
 export class HttpUserLocalLoginDto {
+
+  @Expose()
+  @IsEmail()
+  @IsString()
+  @IsNotEmpty()
+  email: string;
+
+  @Expose()
+  @IsString()
+  @IsNotEmpty()
+  password: string;
 
 }

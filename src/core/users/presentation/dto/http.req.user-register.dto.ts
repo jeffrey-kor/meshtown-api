@@ -26,6 +26,14 @@ export class HttpReqUserRegisterDTO {
   @IsNotEmpty()
   user_address: string;
 
+  @Expose()
+  @IsString()
+  token: string;
+
+  @Expose()
+  @IsString()
+  refreshToken: string;
+
   static of(username, password, email, address): HttpReqUserRegisterDTO {
     const dto = new HttpReqUserRegisterDTO();
     dto.user_name = username;

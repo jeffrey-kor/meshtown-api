@@ -5,6 +5,8 @@ import { HttpCudUserRepository } from '../../infrastructure/repository/http.cud.
 import { HttpRUserRepository } from '../../infrastructure/repository/http.r.user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Encryption } from 'src/common/security/encryption/Encryption';
+import { QueryFailedExceptionFilter } from '../../../auth/exceptions/Query.failed.exception.filter';
+import { QueryFailedError } from 'typeorm';
 
 
 @Injectable()
@@ -36,8 +38,23 @@ export class UserService {
     return await this.userReadRepository.find();
   }
 
-  async findOne(req: number): Promise<User | undefined> {
-    return await this.userReadRepository.findOne(req);
+  async findOne(id: number): Promise<User | undefined> {
+    return await this.userReadRepository.findOne(id);
+  }
+
+  /* domain service */
+  async findOneByEmail(email) {
+    return await this.userReadRepository.findOneByEmail(email);
+  }
+
+  async saveToken(token: string): Promise<boolean> {
+    try {
+      const save  = await this.userCudRepository.saveToken(token);
+      return true;
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
   }
 
 }
