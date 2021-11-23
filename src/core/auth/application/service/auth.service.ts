@@ -4,9 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 import { HttpRUserRepository } from '../../../users/infrastructure/repository/http.r.user.repository';
 import { HttpUserLocalLoginDto } from '../../presentation/dto/http.user.local-login.dto';
 import * as bcrypt from "bcrypt";
-import { getRepository } from 'typeorm';
-import { User } from '../../../users/domain/User';
-
+import { jwtConstants } from '../../constants/jwtConstant';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +14,6 @@ export class AuthService {
     @Inject(HttpRUserRepository) private httpReadUserRepository: HttpRUserRepository,
     private jwtService: JwtService
   ) {}
-
 
   async validateUser(dto: HttpUserLocalLoginDto): Promise<any> {
 
@@ -62,22 +59,6 @@ export class AuthService {
     // TODO:
   }
 
-  async loginWithKakao(req) {
-    // TODO:
-  }
-
-  async loginWithFacebook(req) {
-    // TODO:
-  }
-
-  async loginWithGoogle(req) {
-    // TODO:
-  }
-
-  async loginWithNaver(req) {
-    // TODO:
-  }
-
   async createToken(): Promise<any> {
     // const email = dto.email;
     const emails = { email: "wjdrlrkdl3@gmail.com" };
@@ -90,13 +71,20 @@ export class AuthService {
     }
   }
 
-  async createRefreshToken(req): Promise<any> {
-    // TODO:
+  async createRefreshToken(email: string): Promise<any> {
+    const token = this.jwtService.sign(email, {
+      secret: jwtConstants.secret,
+      expiresIn: "3600s"
+    });
 
+    return {
+      expireIn: "3600s",
+      refreshToken: token
+    }
   }
 
-  async checkTokenValidation(req) {
-    // TODO:
+  async checkTokenValidation(token) {
+    // return this.jwtService.verify()
   }
 
   async checkTokenExpiration(token: string): Promise<Object> {
@@ -107,18 +95,10 @@ export class AuthService {
     return new Object();
   }
 
-  async isValidToken(token): Promise<boolean> {
-    return true;
-  }
-
   async destroyToken(req) {
     // TODO
   }
 
-  async verifyPassword(password: string): Promise<boolean> {
-    // TODO
-    return true
-  }
 
   /*
       SOC 2 준수
