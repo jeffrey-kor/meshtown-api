@@ -19,6 +19,7 @@ import { LocalStrategy } from './infrastructure/strategies/auth.local.strategy';
 import { JwtStrategy } from './infrastructure/strategies/JwtStrategy';
 import { jwtConstants } from './constants/jwtConstant';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 // https://velog.io/@sz3728/NestJS-JWT-%EB%B0%9C%ED%96%89-%EB%B0%8F-%EB%A7%8C%EB%A3%8C%EC%B2%98%EB%A6%AC-%EA%B8%B0%EB%8A%A5-%EA%B6%8C%ED%95%9C-%EC%A0%9C%ED%95%9C#-authservice-%EC%9E%91%EC%84%B1
 
@@ -30,6 +31,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: "60s" }
     }),
+    MailerModule
   ],
   providers: [
     /* Services */

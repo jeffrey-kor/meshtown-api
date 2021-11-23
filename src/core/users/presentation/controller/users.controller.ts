@@ -73,12 +73,6 @@ export class UsersController {
     return this.userService.findOne(req);
   }
 
+  async checkDuplicatedUserEmail() {}
 
-  async updateUserName() {}
-  async updatePassword() {}
-  async updateUserAddress() {}
-
-  async uploadProfilePhoto() {}
-  async updateProfilePhoto() {}
-  async deleteProfilePhoto() {}
 }

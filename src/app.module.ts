@@ -7,6 +7,7 @@ import { UserModules } from './core/users/user.modules';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './core/auth/auth.module';
 import { AuthController } from './core/auth/presentation/controller/auth.controller';
+import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
 
@@ -28,6 +29,10 @@ import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
       limit: 10,
     }),
     UserModules,
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     AuthModule
   ],
   providers: [
