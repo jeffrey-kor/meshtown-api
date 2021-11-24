@@ -1,2 +1,4 @@
 
-export class Like {}
+export class Like {
+  like_id: number;
+}

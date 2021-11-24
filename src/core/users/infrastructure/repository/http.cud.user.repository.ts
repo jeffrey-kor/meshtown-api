@@ -17,7 +17,7 @@ export class HttpCudUserRepository extends Repository<User> {
       .delete()
       .from(User)
       .where(`id =:id`, { id: id })
-      .execute()
+      .execute();
   }
 
   async saveToken(token) {

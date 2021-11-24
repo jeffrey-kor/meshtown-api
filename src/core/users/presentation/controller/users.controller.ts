@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Param,
-  Post,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, UsePipes, ValidationPipe, } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { HttpReqUserRegisterDTO } from '../dto/http.req.user-register.dto';
@@ -40,9 +30,9 @@ export class UsersController {
   @UsePipes(new ValidationPipe({ transform: true }))
   @ApiOperation({ summary: "Register a member api"})
   @ApiOkResponse({ description: "OK(201)", type: ResponseEntity })
-  async register(@Body() req: HttpReqUserRegisterDTO): Promise<ResponseEntity<string>> {
+  async register(@Body() dto: HttpReqUserRegisterDTO): Promise<ResponseEntity<string>> {
     try {
-      await this.userService.register(req.toEntity());
+      await this.userService.register(dto.toEntity());
       return ResponseEntity.OK();
     } catch(e) {
       return ResponseEntity.ERROR_WITH("Failed to signup.");
@@ -73,6 +63,5 @@ export class UsersController {
     return this.userService.findOne(req);
   }
 
-  async checkDuplicatedUserEmail() {}
 
 }

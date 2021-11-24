@@ -1,12 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-
 import { User } from '../../domain/User';
 import { HttpCudUserRepository } from '../../infrastructure/repository/http.cud.user.repository';
 import { HttpRUserRepository } from '../../infrastructure/repository/http.r.user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Encryption } from 'src/common/security/encryption/Encryption';
-import { QueryFailedExceptionFilter } from '../../../auth/exceptions/Query.failed.exception.filter';
-import { QueryFailedError } from 'typeorm';
 
 
 @Injectable()
@@ -41,7 +38,6 @@ export class UserService {
     return await this.userReadRepository.findOne(id);
   }
 
-  /* domain service */
   async findOneByEmail(email) {
     return await this.userReadRepository.findOneByEmail(email);
   }
