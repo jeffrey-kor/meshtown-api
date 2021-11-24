@@ -1,4 +1,5 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, } from 'typeorm';
+import { Profile } from './Profile';
 
 
 @Entity()
@@ -30,5 +31,9 @@ export class User {
 
   @UpdateDateColumn({ type: "timestamp", name: "updated_at" })
   updated_at: Date;
+
+  @OneToOne(() => Profile, profile => profile.user)
+  @JoinColumn()
+  profile: Profile;
 
 }
