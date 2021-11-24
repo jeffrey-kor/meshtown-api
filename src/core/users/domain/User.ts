@@ -1,4 +1,16 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Profile } from './Profile';
+import { Post } from './Post';
 
 
 @Entity()
@@ -19,9 +31,24 @@ export class User {
   @Column({ length: 100 })
   user_address: string;
 
+  @Column({ length: 255, nullable: true })
+  token: string;
+
+  @Column({ length: 255, nullable: true })
+  refreshToken: string;
+
   @CreateDateColumn({ type: "timestamp", name: "created_at" })
   created_at: Date;
 
   @UpdateDateColumn({ type: "timestamp", name: "updated_at" })
   updated_at: Date;
+
+  @OneToOne(() => Profile, profile => profile.user)
+  @JoinColumn()
+  profile: Profile;
+
+  @OneToMany(() => Post, post => post.user)
+  @JoinColumn()
+  post: Post;
+
 }

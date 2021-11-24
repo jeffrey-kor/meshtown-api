@@ -28,12 +28,5 @@ export class Profile {
   @UpdateDateColumn({ type: "timestamp", name: "updated_at" })
   updated_at: Date;
 
-  async updateUserName() {}
-  async updatePassword() {}
-  async updateUserAddress() {}
-
-  async uploadProfilePhoto() {}
-  async updateProfilePhoto() {}
-  async deleteProfilePhoto() {}
 
 }
