@@ -4,6 +4,14 @@ import { User } from './core/users/domain/User';
 import { LoggerMiddleware } from './common/logger/LoggerMiddleware';
 import { UsersController } from './core/users/presentation/controller/users.controller';
 import { UserModules } from './core/users/user.modules';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './core/auth/auth.module';
+
+import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+
+import { Profile } from './core/users/domain/Profile';
+import { AuthController } from './core/auth/presentation/controller/auth.controller';
 
 
 @Module({
@@ -15,12 +23,27 @@ import { UserModules } from './core/users/user.modules';
       username: 'root',
       password: 'Dlsgud*132',
       database: 'meshtown_api',
-      entities: [User],
+      entities: [User, Profile],
       synchronize: true,
     }),
-    UserModules
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
+    UserModules,
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    AuthModule
   ],
-  providers: []
+  providers: [
+  //   {
+  //   provide: APP_GUARD,
+  //   useClass: JwtAuthGuard,
+  // }
+  ],
+
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
@@ -28,6 +51,8 @@ export class AppModule implements NestModule {
       .apply(LoggerMiddleware)
       .forRoutes(
         UsersController,
+        AuthController
       )
   }
 }
+

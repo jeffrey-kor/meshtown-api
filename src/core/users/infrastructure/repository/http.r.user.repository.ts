@@ -13,6 +13,14 @@ export class HttpRUserRepository extends Repository<User> {
     return await queryBuilder.getOne();
   }
 
+  async findOneByEmail(email: string) {
+    const queryBuilder = createQueryBuilder()
+      .select("user")
+      .from(User, "user")
+      .where(`user.user_email =:email`, { email: email })
+    return await queryBuilder.getOne();
+  }
+
 
 
 

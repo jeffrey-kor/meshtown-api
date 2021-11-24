@@ -1,22 +1,12 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Inject,
-  Param,
-  Post,
-  Req,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, UsePipes, ValidationPipe, } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { HttpReqUserRegisterDTO } from '../dto/http.req.user-register.dto';
 import { UserService } from '../../application/service/user.service';
-import { ResponseEntity } from '../../../../system/payloads/responseEntity';
 import { User } from '../../domain/User';
+import { ResponseEntity } from 'src/common/payloads/responseEntity';
+import { Role } from '../../decorators/role.decorator';
+import { UserType } from '../../domain/Role.enum';
 
 @Controller("user")
 @ApiTags("User Apis")
@@ -26,6 +16,7 @@ export class UsersController {
     private readonly userService: UserService,
   ) {}
 
+  @Role(UserType.USER)
   @HttpCode(200)
   @ApiOperation({ summary: "Test Api" })
   @ApiOkResponse({ description: "Test Api", type: ResponseEntity })
@@ -39,9 +30,9 @@ export class UsersController {
   @UsePipes(new ValidationPipe({ transform: true }))
   @ApiOperation({ summary: "Register a member api"})
   @ApiOkResponse({ description: "OK(201)", type: ResponseEntity })
-  async register(@Body() req: HttpReqUserRegisterDTO): Promise<ResponseEntity<string>> {
+  async register(@Body() dto: HttpReqUserRegisterDTO): Promise<ResponseEntity<string>> {
     try {
-      await this.userService.register(req.toEntity());
+      await this.userService.register(dto.toEntity());
       return ResponseEntity.OK();
     } catch(e) {
       return ResponseEntity.ERROR_WITH("Failed to signup.");
@@ -71,5 +62,6 @@ export class UsersController {
   async findOne(@Param("id") req: number): Promise<User> {
     return this.userService.findOne(req);
   }
+
 
 }

@@ -1,10 +1,9 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-
 @Entity()
 export class Profile {
 
-  @PrimaryGeneratedColumn("increment", {name: "profile_id"})
+  @PrimaryGeneratedColumn("increment", { name: "profile_id" })
   profile_id: number;
 
   @Column({ length: 40 })
@@ -27,6 +26,5 @@ export class Profile {
 
   @UpdateDateColumn({ type: "timestamp", name: "updated_at" })
   updated_at: Date;
-
 
 }

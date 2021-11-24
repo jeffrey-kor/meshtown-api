@@ -12,6 +12,17 @@ export class Encryption {
     return hashed;
   }
 
-  validate(password: string): void {}
+  // async validate(req, password: string): Promise<any> {
+  //   return Bcrypt.compare(req.body.password, password, function(err, res) {
+  //     if (err) {
+  //       console.log(`Error:>> ${err.message}`);
+  //     } else if (res) {
+  //       console.log(`Error:>> ${res}`);
+  //     } else {
+  //       console.log(`Password do not matched.`);
+  //     }
+  //   });
+  //
+  // }
 
 }

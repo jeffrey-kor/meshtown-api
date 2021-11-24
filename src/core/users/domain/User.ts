@@ -1,17 +1,6 @@
-import {
-  BeforeInsert,
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, } from 'typeorm';
 import { Profile } from './Profile';
-import { Post } from './Post';
-
+import { Post } from '../../Post/domain/Post';
 
 @Entity()
 export class User {
@@ -43,12 +32,13 @@ export class User {
   @UpdateDateColumn({ type: "timestamp", name: "updated_at" })
   updated_at: Date;
 
-  @OneToOne(() => Profile, profile => profile.user)
+  @OneToOne(() => Profile)
   @JoinColumn()
   profile: Profile;
 
   @OneToMany(() => Post, post => post.user)
   @JoinColumn()
-  post: Post;
+  post: Post[];
+
 
 }
