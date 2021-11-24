@@ -7,8 +7,10 @@ import { UserModules } from './core/users/user.modules';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './core/auth/auth.module';
 import { AuthController } from './core/auth/presentation/controller/auth.controller';
+import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
+import { Profile } from './core/users/domain/Profile';
 
 
 @Module({
@@ -20,7 +22,7 @@ import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
       username: 'root',
       password: 'Dlsgud*132',
       database: 'meshtown_api',
-      entities: [User],
+      entities: [User, Profile],
       synchronize: true,
     }),
     ThrottlerModule.forRoot({
@@ -28,6 +30,10 @@ import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
       limit: 10,
     }),
     UserModules,
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     AuthModule
   ],
   providers: [

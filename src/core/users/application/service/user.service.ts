@@ -28,10 +28,9 @@ export class UserService {
     await this.userCudRepository.save(req);
   }
 
-  async delete(req: number): Promise<void> {
-    const user: Promise<User> = this.userReadRepository.findOneById(req);
-    if (user === undefined) {}
-    await this.userCudRepository.delete(req);
+  async delete(id: number): Promise<void> {
+    const user: Promise<User> = this.userReadRepository.findOneById(id);
+    await this.userCudRepository.deleteUserById(id);
   }
 
   async findAll(): Promise<User[]> {

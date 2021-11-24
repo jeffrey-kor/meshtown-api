@@ -1,7 +1,7 @@
 
-describe("유저 회원가입 유즈케이스 테스트 입니다.", () => {
+describe("Profile controller test.", () => {
 
-  it("", () => {
+  it("POST /", () => {
 
   });
 

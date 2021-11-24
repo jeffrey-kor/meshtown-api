@@ -12,6 +12,14 @@ export class HttpCudUserRepository extends Repository<User> {
     return await queryBuilder.getOne();
   }
 
+  async deleteUserById(id: number) {
+    const queryBuilder = createQueryBuilder()
+      .delete()
+      .from(User)
+      .where(`id =:id`, { id: id })
+      .execute()
+  }
+
   async saveToken(token) {
     const queryBuilder = createQueryBuilder()
       .insert()
