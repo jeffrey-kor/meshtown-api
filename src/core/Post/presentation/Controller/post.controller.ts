@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, HttpCode, Param, Post, Get, UsePipes, ValidationPipe } from '@nestjs/common';
 import { HttpPostWriteDto } from '../dto/http.post.write.dto';
 import { HttpPostUpdateDto } from '../dto/http.post.update.dto';
 import { PostService } from '../../application/post.service';
@@ -19,7 +19,7 @@ export class PostController {
     return this.postService.write(dto.toEntity());
   }
 
-  @Post("/find/:id")
+  @Get("/find/:id")
   @HttpCode(201)
   @UsePipes(new ValidationPipe({ transform: true }))
   @ApiOperation({ summary: "Register a member api"})
