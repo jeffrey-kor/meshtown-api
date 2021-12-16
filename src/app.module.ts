@@ -1,17 +1,18 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './core/users/domain/User';
+import { UserModules } from './core/users/user.modules';
+import { AuthModule } from './core/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { LoggerMiddleware } from './common/logger/LoggerMiddleware';
 import { UsersController } from './core/users/presentation/controller/users.controller';
-import { UserModules } from './core/users/user.modules';
-import { ThrottlerModule } from '@nestjs/throttler';
-import { AuthModule } from './core/auth/auth.module';
-
-import { ConfigModule } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
-
-import { Profile } from './core/users/domain/Profile';
 import { AuthController } from './core/auth/presentation/controller/auth.controller';
+import { Profile } from './core/users/domain/Profile';
+import { User } from './core/users/domain/User';
+
+const providers = [];
+const controllers = [];
+const modules = [];
 
 
 @Module({
