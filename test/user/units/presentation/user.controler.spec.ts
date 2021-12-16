@@ -2,23 +2,23 @@
 describe("User Controller Test", () => {
 
 
-  it("POST /user/create", () => {
+  describe("POST /user/create", () => {
 
   });
 
-  it("PUT /user/update", () => {
+  describe("PUT /user/update", () => {
 
   });
 
-  it("DELETE /user/delete", () => {
+  describe("DELETE /user/delete", () => {
 
   });
 
-  it("GET /user/:{id} findOne", () => {
+  describe("GET /user/:{id} findOne", () => {
 
   });
 
-  it("GET /user/:{id}/list/all", () => {
+  describe("GET /user/:{id}/list/all", () => {
 
   });
 
